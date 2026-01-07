@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real Time Chat</title>
+  </head>
+  <body>
+    <h1>Chat</h1>
+    <div hx-ext="websockets" ws-connect="/websockets">
+      <ul id="chat-room" hx-swap="beforeend" hx-swap-oob="beforeend"></ul>
+      <form ws-send id="form">
+        <input type="text" name="text" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </body>
+</html>
