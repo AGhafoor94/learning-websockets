@@ -4,8 +4,18 @@
     padding: 0;
     margin: 0;
 }
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 :root {
-    --background-colour: "whitesmoke";
+    --background-colour: whitesmoke;
     --font-colour: #333;
     --main-colour: #fc7825;
     --accent-colour: #6a2274
@@ -19,9 +29,17 @@ h1 {
     margin-bottom: 10px;
     border-bottom: 2px solid var(--accent-colour);
 }
+main {
+  flex: 1;
+  display: flex;
+  justify-content:start;
+  align-items: start;
+  padding: 1rem;
+}
 .container {
-    padding: 20px;
-    display: flex;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 8px;
     /* justify-content: center; */
 }
 input[type=text] {
@@ -39,4 +57,12 @@ button {
 }
 button:hover {
     background-color: #6a2274a3;
+}
+/* Footer */
+footer {
+  background: var(--background-colour);
+  color: var(--font-colour);
+  padding: 1rem;
+  text-align: center;
+  border-top:2px solid var(--accent-colour)
 }
