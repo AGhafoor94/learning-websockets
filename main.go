@@ -1,5 +1,7 @@
 package main
 
+import "net/http"
+
 /*
 Try WebRTC
 
@@ -12,4 +14,9 @@ Try WebRTC
 */
 
 func main() {
+	setup_http_server()
+}
+
+func setup_http_server() {
+	http.Handle("/", http.FileServer(http.Dir("./templates")))
 }
