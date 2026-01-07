@@ -1,0 +1,42 @@
+* {
+    font-family:'Century Gothic', Arial;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+:root {
+    --background-colour: "whitesmoke";
+    --font-colour: #333;
+    --main-colour: #fc7825;
+    --accent-colour: #6a2274
+}
+h1 {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background-color: var(--main-colour);
+    color: #fff;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--accent-colour);
+}
+.container {
+    padding: 20px;
+    display: flex;
+    /* justify-content: center; */
+}
+input[type=text] {
+    padding:5px;
+    border-radius:5px;
+}
+button {
+    padding:5px;
+    background-color: var(--accent-colour);
+    border:none;
+    color:#fff;
+    border-radius:5px;
+    transition: 250ms ease-in;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #6a2274a3;
+}
