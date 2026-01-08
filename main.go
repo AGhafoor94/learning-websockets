@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os/exec"
+	// "os/exec"
 )
 
 const port string = ":8080"
@@ -15,14 +15,14 @@ func main() {
 	start_server()
 }
 func start_server() {
-	http.Handle("/", http.FileServer(http.Dir("./src/templates")))
-	cmd := exec.Command("powershell", "-Command", fmt.Sprintf(`[System.Diagnostics.Process]::Start("msedge", "http://localhost%s")`, port))
-	// http.HandleFunc("/details-login", submit_login_details)
-	_, err := cmd.Output()
+	http.Handle("/", http.FileServer(http.Dir("./templates")))
+	// cmd := exec.Command("powershell", "-Command", fmt.Sprintf(`[System.Diagnostics.Process]::Start("msedge", "http://localhost%s")`, port))
+	// // http.HandleFunc("/details-login", submit_login_details)
+	// _, err := cmd.Output()
 
-	if err != nil {
-		panic(err)
-	}
+	// if err != nil {
+	// 	panic(err)
+	// }
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 func submit_login_details(response_writer http.ResponseWriter, request *http.Request) {

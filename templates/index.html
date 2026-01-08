@@ -10,7 +10,19 @@
       :root {
         --main-colour: #fc7825;
         --accent-colour: #e4306d;
-        --black: #33302e;
+        --autumn-colour-theme-coffee: #211832;
+        --autumn-colour-theme-mahogany: #b13b35;
+        --autumn-colour-theme-chesnut: #bf092f;
+        --autumn-colour-theme-pumpkin: #5c3e94;
+        --autumn-colour-theme-almond: #ffcdbc;
+        --default-colour-theme-black: #000000;
+        --default-colour-theme-blue: #14213d;
+        --default-colour-theme-deep-blue: #003049;
+        --default-colour-theme-orange: #fca311;
+        --default-colour-theme-grey: #e5e5e5;
+        --default-colour-theme-white: #ffffff;
+        --dark-green: #004b23;
+        --light-green: #9ef01a;
       }
       * {
         padding: 0;
@@ -29,13 +41,19 @@
         height: 100%;
       }
       header {
-        background-color: orange;
-        border-bottom: 2px solid #db5735;
-        color: white;
+        color: var(--default-colour-theme-grey);
         padding: 2rem;
         text-align: center;
         font-size: 2.5rem;
         font-weight: bold;
+      }
+      .default-header {
+        background-color: var(--default-colour-theme-orange);
+        border-bottom: 2px solid var(--default-colour-theme-deep-blue);
+      }
+      .night-header {
+        background-color: var(--autumn-colour-theme-chesnut);
+        border-bottom: 2px solid var(--autumn-colour-theme-almond);
       }
       h2 {
         text-align: center;
@@ -50,16 +68,32 @@
         align-items: start;
         justify-content: start;
       }
+      .default-main {
+        background-color: var(--default-colour-theme-grey);
+        color: var(--default-colour-theme-black);
+      }
+      .night-main {
+        background-color: var(--autumn-colour-theme-coffee);
+        color: var(--autumn-colour-theme-almond);
+      }
       .container {
         padding: 30px 50px;
         width: 100%;
         height: 100%;
       }
       footer {
-        background-color: whitesmoke;
-        color: var(--black);
+        /* background-color: whitesmoke; */
+        color: var(--autumn-colour-theme-coffee);
         padding: 1rem;
         border-top: 2px solid rgb(221, 221, 221);
+      }
+      .default-footer {
+        background-color: var(--default-colour-theme-white);
+        color: var(--default-colour-theme-black);
+      }
+      .night-footer {
+        background-color: var(--autumn-colour-theme-chesnut);
+        color: var(--autumn-colour-theme-almond);
       }
       .form-control {
         display: block;
@@ -68,20 +102,26 @@
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.5;
-        color: var(--black);
+        color: var(--autumn-colour-theme-coffee);
         appearance: none;
-        background-color: #dadada;
         background-clip: padding-box;
-        border: 1px solid #717274;
         border-radius: 0.375rem;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+      .default-form-control {
+        background-color: var(--default-colour-theme-white);
+        border: 1px solid var(--default-colour-theme-deep-blue);
+      }
+      .night-form-control {
+        background-color: var(--autumn-colour-theme-almond);
+        border: 1px solid var(--autumn-colour-theme-coffee);
       }
       .button {
         display: inline-block;
         padding: 0.375rem 1rem;
         font-weight: 400;
         line-height: 1.5;
-        color: var(--black);
+        color: var(--autumn-colour-theme-coffee);
         text-align: center;
         text-decoration: none;
         vertical-align: middle;
@@ -91,51 +131,61 @@
         user-select: none;
         border: 2px solid #b9bcbe;
         border-radius: 0.375rem;
-        background-color: #dee2e6;
+        background-color: var(--default-colour-theme-grey);
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
           border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
       }
-      .button-primary {
-        color: #fff;
-        background-color: #168f12;
-        border-color: #168f12;
+      .button-submit {
+        color: var(--default-colour-theme-grey);
+        background-color: var(--dark-green);
+        border-color: var(--dark-green);
       }
-      .button-primary:hover {
+      .button-submit:hover {
         color: #fff;
-        background-color: #0e810a;
-        border-color: #0e810a;
+        background-color: var(--light-green);
+        border-color: var(--light-green);
       }
       button:disabled {
-        background-color: #717274;
-        border-color: #717274;
+        color: var(--default-colour-theme-black);
+        background-color: var(--default-colour-theme-white);
+        border-color: var(--default-colour-theme-deep-blue);
         cursor: default;
       }
-      .button-primary:disabled:hover {
-        color: #fff;
-        background-color: #717274;
-        border-color: #717274;
+      .button-submit:disabled:hover {
+        color: var(--default-colour-theme-black);
+        background-color: var(--default-colour-theme-grey);
+        border-color: var(--default-colour-theme-blue);
       }
       .form-label {
         margin-bottom: 0.5rem;
       }
       #side-menu {
-        background: var(--main-colour);
         height: 100%;
         width: 150px;
-        border-right: 2px solid #db5735;
         display: flex;
         flex-direction: column;
         padding: 0 5px;
       }
+      .default-side-menu {
+        background: var(--default-colour-theme-deep-blue);
+        border-right: 2px solid var(--default-colour-theme-white);
+        color: var(--default-colour-theme-white);
+      }
+      .night-side-menu {
+        background: var(--autumn-colour-theme-mahogany);
+        border-right: 2px solid var(--autumn-colour-theme-almond);
+        color: var(--autumn-colour-theme-almond);
+      }
     </style>
-    <header>App</header>
-    <main>
+    <header class="default default-header">App</header>
+    <main class="default default-main">
       <div style="display: flex; height: 100%; width: 100%">
-        <div id="side-menu">
+        <div id="side-menu" class="default default-side-menu">
           <h2 id="ip-chosen"></h2>
         </div>
         <div class="container">
-          <form id="form" hx-post="/details-login">
+          <button class="button" id="change-style-button">Change style</button>
+          <form id="user-details-form" hx-post="/details-login">
             <div
               style="
                 display: flex;
@@ -146,7 +196,7 @@
               <div style="width: 100%; margin: 0 10px">
                 <label for="username" class="form-label">Username</label>
                 <input
-                  class="form-control"
+                  class="form-control default default-form-control"
                   type="text"
                   placeholder="Username"
                   aria-label="username"
@@ -159,7 +209,7 @@
                 <input
                   type="password"
                   id="password"
-                  class="form-control"
+                  class="form-control default default-form-control"
                   placeholder="Password"
                   aria-label="password"
                   name="password"
@@ -168,7 +218,7 @@
               <div style="display: flex; align-items: flex-end">
                 <button
                   type="submit"
-                  class="button button-primary"
+                  class="button button-submit"
                   id="submit-user-button"
                   disabled="true"
                 >
@@ -180,9 +230,51 @@
         </div>
       </div>
     </main>
-    <footer>Footer</footer>
+    <footer class="default default-footer">Footer</footer>
 
     <script>
+      let set_night_style = true;
+      document
+        .getElementById("change-style-button")
+        .addEventListener("click", () => {
+          if (set_night_style) {
+            let list_of_default_styles = document.querySelectorAll(".default");
+            list_of_default_styles.forEach((item) => {
+              // item.classList.remove("night");
+              let current_default_class = "";
+              item.classList.forEach((default_class) => {
+                if (default_class.includes("default-")) {
+                  current_default_class = default_class;
+                }
+              });
+              item.classList.remove("default");
+              item.classList.remove(current_default_class);
+              item.classList.add("night");
+              item.classList.add(
+                current_default_class.replace("default", "night")
+              );
+            });
+            set_night_style = false;
+          } else {
+            let list_of_default_styles = document.querySelectorAll(".night");
+            list_of_default_styles.forEach((item) => {
+              // item.classList.remove("night");
+              let current_default_class = "";
+              item.classList.forEach((default_class) => {
+                if (default_class.includes("night-")) {
+                  current_default_class = default_class;
+                }
+              });
+              item.classList.remove("night");
+              item.classList.remove(current_default_class);
+              item.classList.add("default");
+              item.classList.add(
+                current_default_class.replace("night", "default")
+              );
+            });
+            set_night_style = true;
+          }
+        });
       const sftp_connections = [
         {
           display_name: "Test",
@@ -195,6 +287,15 @@
           user_access: true,
         },
       ];
+      let selected_ip = sftp_connections[0].ip;
+      const change_ip = () => {
+        let new_selected_ip = document.getElementById(`button-${1}`).value;
+        if (new_selected_ip !== selected_ip) {
+          console.log(new_selected_ip);
+        }
+        return false;
+      };
+
       enable_connect_button = 0;
       username_entered = false;
       password_entered = false;
@@ -209,6 +310,12 @@
           submit_user_button.setAttribute("disabled", "true");
         }
         add_sftp_connections_to_side_bar();
+
+        if (window["WebSocket"]) {
+          console.log("Websockets supported");
+        } else {
+          console.log("Websockets not supported");
+        }
       });
       document.getElementById("username").addEventListener("input", (event) => {
         if (event.target.value.length > 0) {
@@ -240,7 +347,7 @@
         sftp_side_menu = document.getElementById("side-menu");
         sftp_connections.forEach((item, index) => {
           sftp_side_menu.innerHTML += `
-            <button id='button-${index}' class='button' style='width: 100%; padding: 5px;margin: 5px 0' onclick='set_ip_address(${index})'>${item.display_name}</button> 
+            <button id='button-${index}' class='button' style='width: 100%; padding: 5px;margin: 5px 0' onclick='set_ip_address(${index})'>${item.display_name}</button>
           `;
         });
       }
