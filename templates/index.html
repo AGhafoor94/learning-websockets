@@ -18,7 +18,7 @@
         --default-colour-theme-black: #000000;
         --default-colour-theme-blue: #14213d;
         --default-colour-theme-deep-blue: #003049;
-        --default-colour-theme-orange: #fca311;
+        --default-colour-theme-orange: #e29415;
         --default-colour-theme-grey: #e5e5e5;
         --default-colour-theme-white: #ffffff;
         --dark-green: #004b23;
@@ -34,6 +34,7 @@
       body {
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
       html,
       body {
@@ -41,19 +42,54 @@
         height: 100%;
       }
       header {
-        color: var(--default-colour-theme-grey);
         padding: 2rem;
         text-align: center;
         font-size: 2.5rem;
         font-weight: bold;
       }
       .default-header {
-        background-color: var(--default-colour-theme-orange);
-        border-bottom: 2px solid var(--default-colour-theme-deep-blue);
+        /* background-color: var(--default-colour-theme-deep-blue);
+        border-bottom: 2px solid var(--default-colour-theme-orange);
+        color: var(--default-colour-theme-grey); */
+        /* background: linear-gradient(135deg, #ff7f00, #9b4dca); */
+        background: linear-gradient(305deg, #d84315, #b71c1c);
+        color: var(--default-colour-theme-grey);
       }
-      .night-header {
-        background-color: var(--autumn-colour-theme-chesnut);
-        border-bottom: 2px solid var(--autumn-colour-theme-almond);
+      .dark-header {
+        /* background-color: var(--autumn-colour-theme-chesnut);
+        border-bottom: 2px solid var(--autumn-colour-theme-almond); */
+        background: linear-gradient(305deg, #d84315, #b71c1c);
+        color: var(--default-colour-theme-grey);
+      }
+      #side-menu {
+        height: 100%;
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+      }
+      .default-side-menu {
+        /* background: var(--default-colour-theme-orange);
+        border-right: 2px solid var(--default-colour-theme-deep-blue);
+        color: var(--default-colour-theme-white); */
+        /* background: linear-gradient(180deg, #ff6600, #8a2be2); */
+        background: linear-gradient(50deg, #d84315, #b71c1c);
+      }
+      .dark-side-menu {
+        /* background: var(--autumn-colour-theme-mahogany);
+        border-right: 2px solid var(--autumn-colour-theme-almond); */
+        background: linear-gradient(50deg, #d84315, #b71c1c);
+        color: var(--autumn-colour-theme-almond);
+      }
+      .default-footer {
+        /* background-color: var(--default-colour-theme-white);
+        color: var(--default-colour-theme-black); */
+        background: linear-gradient(100deg, #d84315, #b71c1c);
+        color: var(--default-colour-theme-grey);
+      }
+      .dark-footer {
+        background: linear-gradient(100deg, #d84315, #b71c1c);
+        color: var(--autumn-colour-theme-almond);
       }
       h2 {
         text-align: center;
@@ -72,7 +108,7 @@
         background-color: var(--default-colour-theme-grey);
         color: var(--default-colour-theme-black);
       }
-      .night-main {
+      .dark-main {
         background-color: var(--autumn-colour-theme-coffee);
         color: var(--autumn-colour-theme-almond);
       }
@@ -85,15 +121,7 @@
         /* background-color: whitesmoke; */
         color: var(--autumn-colour-theme-coffee);
         padding: 1rem;
-        border-top: 2px solid rgb(221, 221, 221);
-      }
-      .default-footer {
-        background-color: var(--default-colour-theme-white);
-        color: var(--default-colour-theme-black);
-      }
-      .night-footer {
-        background-color: var(--autumn-colour-theme-chesnut);
-        color: var(--autumn-colour-theme-almond);
+        /* border-top: 2px solid rgb(221, 221, 221); */
       }
       .form-control {
         display: block;
@@ -112,7 +140,7 @@
         background-color: var(--default-colour-theme-white);
         border: 1px solid var(--default-colour-theme-deep-blue);
       }
-      .night-form-control {
+      .dark-form-control {
         background-color: var(--autumn-colour-theme-almond);
         border: 1px solid var(--autumn-colour-theme-coffee);
       }
@@ -157,34 +185,61 @@
         border-color: var(--default-colour-theme-blue);
       }
       .form-label {
-        margin-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
       }
-      #side-menu {
-        height: 100%;
-        width: 150px;
-        display: flex;
-        flex-direction: column;
-        padding: 0 5px;
-      }
-      .default-side-menu {
-        background: var(--default-colour-theme-deep-blue);
-        border-right: 2px solid var(--default-colour-theme-white);
-        color: var(--default-colour-theme-white);
-      }
-      .night-side-menu {
-        background: var(--autumn-colour-theme-mahogany);
-        border-right: 2px solid var(--autumn-colour-theme-almond);
-        color: var(--autumn-colour-theme-almond);
+      #ip-chosen {
+        color: var(--default-colour-theme-grey);
       }
     </style>
-    <header class="default default-header">App</header>
+    <header class="default default-header">
+      App
+      <div>
+        <div onclick="change_css_styles()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="currentColor"
+            class="bi bi-moon"
+            viewBox="0 0 16 16"
+            style="position: absolute; right: 20px; top: 35px; cursor: pointer"
+            id="moon-svg"
+          >
+            <path
+              d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"
+            />
+          </svg>
+        </div>
+        <div onclick="change_css_styles()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="currentColor"
+            class="bi bi-brightness-high"
+            id="sun-svg"
+            viewBox="0 0 16 16"
+            style="
+              position: absolute;
+              right: 20px;
+              top: 35px;
+              display: none;
+              cursor: pointer;
+            "
+          >
+            <path
+              d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"
+            />
+          </svg>
+        </div>
+      </div>
+    </header>
     <main class="default default-main">
       <div style="display: flex; height: 100%; width: 100%">
         <div id="side-menu" class="default default-side-menu">
-          <h2 id="ip-chosen"></h2>
+          <h2 id="ip-chosen" style="margin-top: 10px"></h2>
         </div>
         <div class="container">
-          <button class="button" id="change-style-button">Change style</button>
           <form id="user-details-form" hx-post="/details-login">
             <div
               style="
@@ -215,6 +270,16 @@
                   name="password"
                 />
               </div>
+              <div style="width: 100%; margin: 0 10px; display: none">
+                <input
+                  type="text"
+                  id="ip-input"
+                  class="form-control default default-form-control"
+                  placeholder="ip"
+                  aria-label="ip"
+                  name="ip"
+                />
+              </div>
               <div style="display: flex; align-items: flex-end">
                 <button
                   type="submit"
@@ -233,48 +298,7 @@
     <footer class="default default-footer">Footer</footer>
 
     <script>
-      let set_night_style = true;
-      document
-        .getElementById("change-style-button")
-        .addEventListener("click", () => {
-          if (set_night_style) {
-            let list_of_default_styles = document.querySelectorAll(".default");
-            list_of_default_styles.forEach((item) => {
-              // item.classList.remove("night");
-              let current_default_class = "";
-              item.classList.forEach((default_class) => {
-                if (default_class.includes("default-")) {
-                  current_default_class = default_class;
-                }
-              });
-              item.classList.remove("default");
-              item.classList.remove(current_default_class);
-              item.classList.add("night");
-              item.classList.add(
-                current_default_class.replace("default", "night")
-              );
-            });
-            set_night_style = false;
-          } else {
-            let list_of_default_styles = document.querySelectorAll(".night");
-            list_of_default_styles.forEach((item) => {
-              // item.classList.remove("night");
-              let current_default_class = "";
-              item.classList.forEach((default_class) => {
-                if (default_class.includes("night-")) {
-                  current_default_class = default_class;
-                }
-              });
-              item.classList.remove("night");
-              item.classList.remove(current_default_class);
-              item.classList.add("default");
-              item.classList.add(
-                current_default_class.replace("night", "default")
-              );
-            });
-            set_night_style = true;
-          }
-        });
+      let websocket_connection;
       const sftp_connections = [
         {
           display_name: "Test",
@@ -287,6 +311,67 @@
           user_access: true,
         },
       ];
+      window.addEventListener("load", (event) => {
+        // username_input = document.getElementById("username");
+        // password_input = document.getElementById("password");
+        validate_for_submitting();
+        add_sftp_connections_to_side_bar();
+
+        if (window["WebSocket"]) {
+          console.log("Websockets supported");
+          websocket_connection = new WebSocket(
+            "ws://" + document.location.host + "/websocket"
+          );
+        } else {
+          console.log("Websockets not supported");
+        }
+      });
+      function change_css_styles() {
+        console.log("Change styles clicked");
+        if (set_dark_style) {
+          document.getElementById("moon-svg").style.display = "none";
+          document.getElementById("sun-svg").style.display = "block";
+          let list_of_default_styles = document.querySelectorAll(".default");
+          list_of_default_styles.forEach((item) => {
+            // item.classList.remove("dark");
+            let current_default_class = "";
+            item.classList.forEach((default_class) => {
+              if (default_class.includes("default-")) {
+                current_default_class = default_class;
+              }
+            });
+            item.classList.remove("default");
+            item.classList.remove(current_default_class);
+            item.classList.add("dark");
+            item.classList.add(
+              current_default_class.replace("default", "dark")
+            );
+          });
+          set_dark_style = false;
+        } else {
+          document.getElementById("sun-svg").style.display = "none";
+          document.getElementById("moon-svg").style.display = "block";
+          let list_of_default_styles = document.querySelectorAll(".dark");
+          list_of_default_styles.forEach((item) => {
+            // item.classList.remove("dark");
+            let current_default_class = "";
+            item.classList.forEach((default_class) => {
+              if (default_class.includes("dark-")) {
+                current_default_class = default_class;
+              }
+            });
+            item.classList.remove("dark");
+            item.classList.remove(current_default_class);
+            item.classList.add("default");
+            item.classList.add(
+              current_default_class.replace("dark", "default")
+            );
+          });
+          set_dark_style = true;
+        }
+      }
+      let set_dark_style = true;
+
       let selected_ip = sftp_connections[0].ip;
       const change_ip = () => {
         let new_selected_ip = document.getElementById(`button-${1}`).value;
@@ -299,24 +384,6 @@
       enable_connect_button = 0;
       username_entered = false;
       password_entered = false;
-      window.addEventListener("load", (event) => {
-        username_input = document.getElementById("username");
-        password_input = document.getElementById("password");
-        submit_user_button = document.getElementById("submit-user-button");
-        if (
-          username_input.value.length === 0 ||
-          password_input.value.length === 0
-        ) {
-          submit_user_button.setAttribute("disabled", "true");
-        }
-        add_sftp_connections_to_side_bar();
-
-        if (window["WebSocket"]) {
-          console.log("Websockets supported");
-        } else {
-          console.log("Websockets not supported");
-        }
-      });
       document.getElementById("username").addEventListener("input", (event) => {
         if (event.target.value.length > 0) {
           username_entered = true;
@@ -324,11 +391,7 @@
           username_entered = false;
         }
         console.log(event.target.value);
-        if (username_entered && password_entered) {
-          submit_user_button.removeAttribute("disabled");
-        } else {
-          submit_user_button.setAttribute("disabled", "true");
-        }
+        validate_for_submitting();
       });
       document.getElementById("password").addEventListener("input", (event) => {
         if (event.target.value.length > 0) {
@@ -337,11 +400,7 @@
           password_entered = false;
         }
         console.log(event.target.value);
-        if (username_entered && password_entered) {
-          submit_user_button.removeAttribute("disabled");
-        } else {
-          submit_user_button.setAttribute("disabled", "true");
-        }
+        validate_for_submitting();
       });
       function add_sftp_connections_to_side_bar() {
         sftp_side_menu = document.getElementById("side-menu");
@@ -356,6 +415,31 @@
         console.log(target_id);
         document.getElementById("ip-chosen").innerHTML =
           sftp_connections[target_id].ip;
+        document.getElementById("ip-input").value =
+          sftp_connections[target_id].ip;
+        validate_for_submitting();
+      }
+      function validate_for_submitting() {
+        submit_user_button = document.getElementById("submit-user-button");
+        if (
+          username_entered &&
+          password_entered &&
+          document.getElementById("ip-input").value !== ""
+        ) {
+          submit_user_button.removeAttribute("disabled");
+        } else {
+          let validation_error = "";
+          submit_user_button.setAttribute("disabled", "true");
+          if (!username_entered) {
+            validation_error += " Please enter username. ";
+          }
+          if (!password_entered) {
+            validation_error += " Please enter password. ";
+          }
+          if (document.getElementById("ip-input").value === "") {
+            validation_error += " Please select SFTP Server. ";
+          }
+        }
       }
       function post_data_to_endpoint() {
         var xhr = new XMLHttpRequest();
