@@ -25,6 +25,7 @@ func main() {
 }
 func start_server() {
 	websocket_manager := new_web_socket_manager()
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.Handle("/", http.FileServer(http.Dir("./templates")))
 	http.HandleFunc("/websocket", websocket_manager.serve_websocket)
 	cmd := exec.Command("powershell", "-Command", fmt.Sprintf(`[System.Diagnostics.Process]::Start("msedge", "http://localhost%s")`, port))

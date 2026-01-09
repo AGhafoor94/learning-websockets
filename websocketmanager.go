@@ -29,6 +29,10 @@ func (manager *web_socket_manager_struct) serve_websocket(response_writer http.R
 
 	// Start clients with read and write messages
 	// Gorilla only allows 1 user to write so need to change that
+	// https://www.youtube.com/watch?v=pKpKv9MKN-E&t=193s 35:13
+	go client.read_data()
+	go client.write_data()
+
 }
 
 func (manager *web_socket_manager_struct) add_client(user_client *user_client_websocket_struct) {
