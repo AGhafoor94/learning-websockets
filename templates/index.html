@@ -98,7 +98,7 @@
           <h2 id="ip-chosen" style="margin-top: 10px"></h2>
         </div>
         <div class="container">
-          <form id="user-details-form" hx-post="/details-login">
+          <!-- <form id="user-details-form" hx-post="/details-login">
             <div
               style="
                 display: flex;
@@ -149,9 +149,42 @@
                 </button>
               </div>
             </div>
-          </form>
-          <button class="button" onclick="send_message()">Send Username</button>
-          <div id="websocket-message"></div>
+          </form> -->
+          <div style="width: 100%; margin: 0 10px">
+            <label for="username" class="form-label">Username</label>
+            <input
+              class="form-control default default-form-control"
+              type="text"
+              placeholder="Username"
+              aria-label="username"
+              id="username"
+              name="username"
+            />
+          </div>
+          <div style="width: 100%; margin: 0 10px">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control default default-form-control"
+              placeholder="Password"
+              aria-label="password"
+              name="password"
+            />
+          </div>
+          <div style="display: flex; align-items: flex-end">
+            <button
+              type="submit"
+              class="button button-submit"
+              id="submit-user-button"
+              disabled="true"
+            >
+              Connect
+            </button>
+          </div>
+          <p id="responseOutput"></p>
+          <!-- <button class="button" onclick="send_message()">Send Username</button>
+          <div id="websocket-message"></div> -->
         </div>
       </div>
     </main>
