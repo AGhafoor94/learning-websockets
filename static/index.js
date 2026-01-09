@@ -1,5 +1,14 @@
 let show_side_bar = true;
 let websocket_connection;
+let enable_connect_button = 0;
+let username_entered = false;
+let password_entered = false;
+
+const main_header = document.getElementById("main-header");
+const main_main = document.getElementById("main-main");
+const main_footer = document.getElementById("main-footer");
+const login_main = document.getElementById("login-main");
+
 const submit_user_button = document.getElementById("submit-user-button");
 const sftp_connections = [
   {
@@ -16,6 +25,7 @@ const sftp_connections = [
 window.addEventListener("load", (event) => {
   // username_input = document.getElementById("username");
   // password_input = document.getElementById("password");
+
   const client_style = localStorage.getItem("client_style");
   if (client_style === null) {
     localStorage.setItem("client_style", "default");
@@ -121,9 +131,6 @@ const change_ip = () => {
   return false;
 };
 
-enable_connect_button = 0;
-username_entered = false;
-password_entered = false;
 document.getElementById("username").addEventListener("input", (event) => {
   if (event.target.value.length > 0) {
     username_entered = true;
@@ -151,11 +158,19 @@ submit_user_button.addEventListener("click", () => {
 function add_sftp_connections_to_side_bar() {
   sftp_side_menu = document.getElementById("side-menu");
   sftp_connections.forEach((item, index) => {
+    let option = document.createElement("option");
+    option.value = item.ip;
+    option.innerHTML = item.display_name;
+    document.getElementById("sftp-select").appendChild(option);
+
     sftp_side_menu.innerHTML += `
             <button id='button-${index}' class='button' style='width: 100%; padding: 5px;margin: 5px 0' onclick='set_ip_address(${index})'>${item.display_name}</button>
           `;
   });
 }
+document.getElementById("sftp-select").addEventListener("change", (event) => {
+  document.getElementById("title").innerHTML = event.target.value;
+});
 function set_ip_address(target_id) {
   console.log(sftp_connections[target_id]);
   console.log(target_id);
@@ -188,7 +203,7 @@ function validate_for_submitting() {
 }
 
 function post_data_to_endpoint() {
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8080/details-login", true);
   xhr.setRequestHeader("Content-Type", "application/json");
   // xhr.send(
@@ -196,22 +211,20 @@ function post_data_to_endpoint() {
   //     test: "Test",
   //   })
   // );
-  console.log(xhr.getAllResponseHeaders());
-  xhr.onload = function () {
+  xhr.onloadend = () => {
     if (xhr.status === 200) {
-      // If the request is successful, parse the JSON response
-      try {
-        var responseJson = JSON.parse(xhr.responseText); // Parse JSON string to an object
-
-        // Handle the response (e.g., display it in a div)
-        document.getElementById(
-          "responseOutput"
-        ).innerHTML = `<strong>Message:</strong> ${responseJson.message}<br><strong>Status:</strong> ${responseJson.status}`;
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-      }
+      const json_response = JSON.parse(xhr.responseText);
+      console.log(JSON.parse(json_response.message));
+      window.history.pushState(
+        { html: "", pageTitle: "" },
+        "",
+        "http://localhost:8080"
+      );
+      login_main.style.display = "none";
+      main_header.style.display = "block";
+      main_main.style.display = "block";
+      main_footer.style.display = "block";
     } else {
-      // If the request fails, log the error
       console.error("Request failed with status:", xhr.status);
     }
   };
@@ -219,7 +232,8 @@ function post_data_to_endpoint() {
     JSON.stringify({
       username: document.getElementById("username").value,
       password: document.getElementById("password").value,
-      ip: document.getElementById("ip-chosen").innerHTML,
+      //   ip: document.getElementById("ip-chosen").innerHTML,
+      ip: document.getElementById("sftp-select").value,
     })
   );
 }
