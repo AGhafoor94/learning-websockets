@@ -229,10 +229,13 @@ button:disabled {
   background: radial-gradient(farthest-side, #ffa516 94%, transparent) top/8px
       8px no-repeat,
     conic-gradient(transparent 30%, #ffa516);
-  animation: l13 1s infinite linear;
+  animation: spinner 1s infinite linear;
 }
-@keyframes l13 {
+@keyframes spinner {
   100% {
-    transform: rotate(1turn);
+    transform: rotate(360deg);
   }
+}
+#login-background {
+  background: linear-gradient(135deg, #000000, 55%, #d84315);
 }
