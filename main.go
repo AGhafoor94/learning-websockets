@@ -70,6 +70,23 @@ func submit_login_details(response_writer http.ResponseWriter, request *http.Req
 		Status:  http.StatusOK,
 	}
 	response_writer.Header().Add("Content-Type", "application/json")
+	response_writer.Header().Add("Access-Control-Allow-Origin", "*")
 	response_writer.WriteHeader(http.StatusOK)
 	json.NewEncoder(response_writer).Encode(status_return)
 }
+
+// func file_handler(response_writer http.ResponseWriter, request *http.Request) {
+// 	response_writer.Header().Add("Content-Type", "application/json")
+// 	request.ParseMultipartForm()
+// 	file, handler, err := request.FormFile("file")
+// 	if err != nil {
+
+// 		status_return := status_return_struct{
+// 			Message: "File not able to load",
+// 			Status:  http.StatusBadRequest,
+// 		}
+// 		response_writer.WriteHeader(http.StatusBadRequest)
+// 		json.NewEncoder(response_writer).Encode(status_return)
+// 	}
+// 	defer file.Close()
+// }

@@ -3,6 +3,7 @@ let websocket_connection;
 let enable_connect_button = 0;
 let username_entered = false;
 let password_entered = false;
+let ip_address_selected = false;
 let validation_error = "";
 
 const loading = document.getElementById("loading-spinner");
@@ -46,7 +47,8 @@ window.addEventListener("load", () => {
   }
   change_css_styles();
   validate_for_submitting();
-  add_sftp_connections_to_side_bar();
+  add_sftp_connections_to_drop_down();
+  add_data_to_side_bar();
 
   if (window["WebSocket"]) {
     console.log("Websockets supported");
@@ -83,7 +85,7 @@ document.getElementById("side-bar-toggle").addEventListener("click", () => {
   }
 });
 function change_css_styles() {
-  console.log("Change styles clicked");
+  //   console.log("Change styles clicked");
   if (set_dark_style) {
     document.getElementById("moon-svg").style.display = "none";
     document.getElementById("sun-svg").style.display = "block";
@@ -101,6 +103,9 @@ function change_css_styles() {
       item.classList.add("dark");
       item.classList.add(current_default_class.replace("default", "dark"));
     });
+    document.getElementById("sftp-select").classList.remove("display");
+    document.getElementById("sftp-select").classList.add("dark");
+    document.getElementById("sftp-select").classList.add("dark-form-control");
     localStorage.setItem("client_style", "dark");
     set_dark_style = false;
   } else {
@@ -120,6 +125,11 @@ function change_css_styles() {
       item.classList.add("default");
       item.classList.add(current_default_class.replace("dark", "default"));
     });
+    document.getElementById("sftp-select").classList.remove("dark");
+    document.getElementById("sftp-select").classList.add("display");
+    document
+      .getElementById("sftp-select")
+      .classList.add("display-form-control");
     localStorage.setItem("client_style", "default");
     set_dark_style = true;
   }
@@ -155,6 +165,15 @@ document.getElementById("password").addEventListener("input", (event) => {
   validate_for_submitting();
 });
 
+document.getElementById("sftp-select").addEventListener("change", (event) => {
+  if (event.target.value !== "") {
+    ip_address_selected = true;
+  } else {
+    ip_address_selected = false;
+  }
+  console.log(event.target.value);
+  validate_for_submitting();
+});
 submit_user_button.addEventListener("click", async () => {
   if (
     document.getElementById("sftp-select").value !== "" &&
@@ -169,18 +188,25 @@ submit_user_button.addEventListener("click", async () => {
   }
 });
 
-function add_sftp_connections_to_side_bar() {
-  sftp_side_menu = document.getElementById("side-menu");
-  sftp_connections.forEach((item, index) => {
+function add_sftp_connections_to_drop_down() {
+  sftp_connections.forEach((item) => {
     let option = document.createElement("option");
     option.value = item.ip;
     option.innerHTML = item.display_name;
     document.getElementById("sftp-select").appendChild(option);
-
-    sftp_side_menu.innerHTML += `
-            <button id='button-${index}' class='button' style='width: 100%; padding: 5px;margin: 5px 0' onclick='set_ip_address(${index})'>${item.display_name}</button>
-          `;
   });
+}
+function click_test(i) {
+  console.log(i);
+}
+function add_data_to_side_bar() {
+  sftp_side_menu = document.getElementById("side-menu");
+  for (let i = 0; i < 5; i++) {
+    sftp_side_menu.innerHTML += `<div class="folders" id='button-${i}' style='width: 100%; padding: 5px;margin: 5px 0;display: flex;align-items: center;' onclick="click_test(${i})">${return_folder_filled_icon(
+      32,
+      "fill: var(--default-colour-theme-grey) !important"
+    )} <span style="margin-left: 10px">Folder ${i}</span></div>`;
+  }
 }
 document.getElementById("sftp-select").addEventListener("change", (event) => {
   document.getElementById("title").innerHTML = event.target.value;
@@ -195,11 +221,7 @@ function set_ip_address(target_id) {
   validate_for_submitting();
 }
 function validate_for_submitting() {
-  if (
-    username_entered &&
-    password_entered &&
-    document.getElementById("sftp-select").value !== ""
-  ) {
+  if (username_entered && password_entered && ip_address_selected) {
     submit_user_button.setAttribute(
       "title",
       `Click to connect to: ${document.getElementById("sftp-select").value}`
@@ -207,7 +229,7 @@ function validate_for_submitting() {
     submit_user_button.removeAttribute("disabled");
   } else {
     submit_user_button.setAttribute("disabled", "true");
-    if (document.getElementById("sftp-select").value === "") {
+    if (!ip_address_selected) {
       validation_error += " Select SFTP Connection. ";
     }
     if (!username_entered) {
@@ -222,3 +244,18 @@ function validate_for_submitting() {
     // }
   }
 }
+document.getElementById("menu-opened-location").innerHTML =
+  return_menu_opened_icon(32, "");
+
+document.getElementById("menu-closed-location").innerHTML =
+  return_menu_closed_icon(32, "");
+
+document.getElementById("moon-icon-location").innerHTML = return_moon_icon(
+  32,
+  "position: absolute; right: 20px; top: 35px; cursor: pointer"
+);
+
+document.getElementById("sun-icon-location").innerHTML = return_sun_icon(
+  32,
+  "position: absolute; right: 20px; top: 35px; display: none; cursor: pointer;"
+);
