@@ -155,13 +155,14 @@ document.getElementById("password").addEventListener("input", (event) => {
   validate_for_submitting();
 });
 
-submit_user_button.addEventListener("click", () => {
+submit_user_button.addEventListener("click", async () => {
   if (
     document.getElementById("sftp-select").value !== "" &&
     username_entered &&
     password_entered
   ) {
-    post_data_to_endpoint();
+    // post_data_to_endpoint();
+    await post_data();
   } else {
     document.getElementById("validation-error").innerHTML = validation_error;
     document.getElementById("validation-error").style.display = "block";

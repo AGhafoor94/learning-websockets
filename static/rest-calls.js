@@ -70,3 +70,67 @@ function read_message() {
   }
   return false;
 }
+const get_data = async () => {
+  const url = "http://localhost:8080";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+const post_data = async () => {
+  loading_div.style.display = "flex";
+  const url = "http://localhost:8080/details-login";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      username: document.getElementById("username").value,
+      password: document.getElementById("password").value,
+      ip: document.getElementById("sftp-select").value,
+    }),
+  });
+  if (!response.ok) {
+    error_html.innerHTML = `<h2 style='font-size:1.5rem !important'>Error connecting to <span style='text-decoration:underline;font-size:1.5rem !important'>${
+      document.getElementById("sftp-select").value
+    }</span> with credentials (Status Code: ${response.status})</h2>`;
+    error_html.style.height = "75px";
+    //   error_html.style.padding = "20px";
+    console.error("Request failed with status:", response.status);
+
+    time_out_num = setTimeout(() => {
+      loading_div.style.display = "none";
+      error_html.innerHTML = "";
+      error_html.style.height = "0";
+      error_html.style.padding = "0";
+    }, 4000);
+    return;
+    // throw new Error(`Response status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  error_html.style.height = "0";
+  error_html.style.padding = "0";
+  error_html.innerHTML = "";
+  console.log(result);
+  const json_response = JSON.parse(result.message);
+  console.log(json_response);
+  window.history.pushState(
+    { html: "", pageTitle: "" },
+    "",
+    "http://localhost:8080"
+  );
+  time_out_num = setTimeout(() => {
+    login_main.style.display = "none";
+    main_header.style.display = "block";
+    main_main.style.display = "block";
+    main_footer.style.display = "block";
+    loading_div.style.display = "none";
+  }, 2000);
+  console.log(result);
+};
