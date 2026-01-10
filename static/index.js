@@ -3,13 +3,17 @@ let websocket_connection;
 let enable_connect_button = 0;
 let username_entered = false;
 let password_entered = false;
+let validation_error = "";
 
+const loading = document.getElementById("loading-spinner");
+const loading_div = document.getElementById("loading-spinner-div");
 const main_header = document.getElementById("main-header");
 const main_main = document.getElementById("main-main");
 const main_footer = document.getElementById("main-footer");
 const login_main = document.getElementById("login-main");
-
+const error_html = document.getElementById("error-div");
 const submit_user_button = document.getElementById("submit-user-button");
+
 const sftp_connections = [
   {
     display_name: "Test",
@@ -22,10 +26,10 @@ const sftp_connections = [
     user_access: true,
   },
 ];
-window.addEventListener("load", (event) => {
+window.addEventListener("load", () => {
   // username_input = document.getElementById("username");
   // password_input = document.getElementById("password");
-
+  document.getElementById("validation-error").style.display = "none";
   const client_style = localStorage.getItem("client_style");
   if (client_style === null) {
     localStorage.setItem("client_style", "default");
@@ -152,7 +156,16 @@ document.getElementById("password").addEventListener("input", (event) => {
 });
 
 submit_user_button.addEventListener("click", () => {
-  post_data_to_endpoint();
+  if (
+    document.getElementById("sftp-select").value !== "" &&
+    username_entered &&
+    password_entered
+  ) {
+    post_data_to_endpoint();
+  } else {
+    document.getElementById("validation-error").innerHTML = validation_error;
+    document.getElementById("validation-error").style.display = "block";
+  }
 });
 
 function add_sftp_connections_to_side_bar() {
@@ -183,73 +196,28 @@ function set_ip_address(target_id) {
 function validate_for_submitting() {
   if (
     username_entered &&
-    password_entered
-    // && document.getElementById("ip-input").value !== ""
+    password_entered &&
+    document.getElementById("sftp-select").value !== ""
   ) {
+    submit_user_button.setAttribute(
+      "title",
+      `Click to connect to: ${document.getElementById("sftp-select").value}`
+    );
     submit_user_button.removeAttribute("disabled");
   } else {
-    let validation_error = "";
     submit_user_button.setAttribute("disabled", "true");
+    if (document.getElementById("sftp-select").value === "") {
+      validation_error += " Select SFTP Connection. ";
+    }
     if (!username_entered) {
-      validation_error += " Please enter username. ";
+      validation_error += " Enter Username. ";
     }
     if (!password_entered) {
-      validation_error += " Please enter password. ";
+      validation_error += " Enter Password. ";
     }
+    submit_user_button.setAttribute("title", validation_error);
     // if (document.getElementById("ip-input").value === "") {
     //   validation_error += " Please select SFTP Server. ";
     // }
   }
-}
-
-function post_data_to_endpoint() {
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:8080/details-login", true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  // xhr.send(
-  //   JSON.stringify({
-  //     test: "Test",
-  //   })
-  // );
-  xhr.onloadend = () => {
-    if (xhr.status === 200) {
-      const json_response = JSON.parse(xhr.responseText);
-      console.log(JSON.parse(json_response.message));
-      window.history.pushState(
-        { html: "", pageTitle: "" },
-        "",
-        "http://localhost:8080"
-      );
-      login_main.style.display = "none";
-      main_header.style.display = "block";
-      main_main.style.display = "block";
-      main_footer.style.display = "block";
-    } else {
-      console.error("Request failed with status:", xhr.status);
-    }
-  };
-  xhr.send(
-    JSON.stringify({
-      username: document.getElementById("username").value,
-      password: document.getElementById("password").value,
-      //   ip: document.getElementById("ip-chosen").innerHTML,
-      ip: document.getElementById("sftp-select").value,
-    })
-  );
-}
-
-function send_message() {
-  let username = document.getElementById("username");
-  if (username.value !== null) {
-    websocket_connection.send(username.value);
-  }
-  return false;
-}
-
-function read_message() {
-  let password = document.getElementById("password");
-  if (username.value !== null) {
-    websocket_connection.get();
-  }
-  return false;
 }
