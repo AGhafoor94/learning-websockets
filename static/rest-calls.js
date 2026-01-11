@@ -73,7 +73,8 @@ const get_data = async () => {
     console.error(error.message);
   }
 };
-const post_data = async () => {
+const post_data = async (event) => {
+  console.log(event);
   loading_screen(true, 0);
   const url = "http://localhost:8080/api/v1.0/details-login";
   const response = await fetch(url, {
@@ -101,7 +102,6 @@ const post_data = async () => {
   error_html.style.height = "0";
   error_html.style.padding = "0";
   error_html.innerHTML = "";
-  console.log(result);
   const json_response = JSON.parse(result.message);
   console.log(json_response);
   window.history.pushState(

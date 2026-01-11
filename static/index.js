@@ -174,7 +174,8 @@ const change_ip = () => {
 //   console.log(event.target.value);
 //   validate_for_submitting();
 // });
-submit_user_button.addEventListener("click", async () => {
+submit_user_button.addEventListener("click", async (event) => {
+  event.preventDefault();
   validation_error = "";
   if (document.getElementById("username").value !== "") {
     username_entered = true;
@@ -210,7 +211,6 @@ submit_user_button.addEventListener("click", async () => {
     document.getElementById("validation-error").style.textAlign = "left";
   }
 });
-
 function add_sftp_connections_to_drop_down() {
   sftp_connections.forEach((item) => {
     let option = document.createElement("option");

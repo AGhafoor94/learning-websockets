@@ -63,13 +63,27 @@ func submit_login_details(response_writer http.ResponseWriter, request *http.Req
 
 	// name := request.PostFormValue("username")
 	// fmt.Fprintf(response_writer, "Hello, %s!", name)
+
 	type mapped_test_data map[string]string
 	var new_data_temp = make(map[string]string)
-	new_data_temp["test"] = "TEST DATA"
-	new_data_temp["test_2"] = "TEST DATA_2"
+	// var sftp_user_details sftp_login_details_struct
+	// new_data_temp["test"] = "TEST DATA"
+	// new_data_temp["test_2"] = "TEST DATA_2"
+	// err = json.Unmarshal(data_byte_array, &sftp_user_details)
 
+	// if err != nil {
+	// 	fmt.Println("Unable to read all request body: ", err)
+	// }
+	// fmt.Println("SFTP:", sftp_user_details)
+	err = json.Unmarshal(data_byte_array, &new_data_temp)
+
+	if err != nil {
+		fmt.Println("Unable to read all request body: ", err)
+	}
+	fmt.Println("NEW MAP DATA:", new_data_temp, " IP: ", new_data_temp["ip"], " USERNAME: ", new_data_temp["username"], " Password: ", new_data_temp["password"])
+	// fmt.Println("NEW MAP DATA:", sftp_user_details, " IP: ", sftp_user_details.IP, " USERNAME: ", sftp_user_details.User, " Password: ", sftp_user_details.Password)
 	json_string_to_send, err := json.Marshal(new_data_temp)
-
+	fmt.Println(string(json_string_to_send))
 	status_return := status_return_struct{
 		Message: string(json_string_to_send),
 		Status:  http.StatusOK,
