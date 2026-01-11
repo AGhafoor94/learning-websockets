@@ -163,7 +163,7 @@ select {
   border: 1px solid var(--default-colour-theme-deep-blue);
 }
 .dark-form-control {
-  background-color: var(--autumn-colour-theme-almond);
+  background-color: var(--default-colour-theme-white);
   border: 1px solid var(--autumn-colour-theme-coffee);
 }
 .button {

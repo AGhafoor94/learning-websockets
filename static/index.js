@@ -291,3 +291,18 @@ document.getElementById("sun-icon-location").innerHTML = return_sun_icon(
   32,
   "position: absolute; right: 20px; top: 35px; display: none; cursor: pointer;"
 );
+function loading_screen(loading, timeout) {
+  if (loading) {
+    loading_div.style.display = "flex";
+    return 0;
+  } else {
+    console.log("Loaded");
+    return setTimeout(() => {
+      login_main.style.display = "none";
+      main_header.style.display = "block";
+      main_main.style.display = "block";
+      main_footer.style.display = "block";
+      loading_div.style.display = "none";
+    }, timeout);
+  }
+}

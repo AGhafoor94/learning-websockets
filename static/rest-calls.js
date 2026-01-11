@@ -1,6 +1,6 @@
 function post_data_to_endpoint() {
   let time_out_num;
-  loading_div.style.display = "flex";
+  loading_screen(true, 0);
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8080/details-login", true);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -21,13 +21,7 @@ function post_data_to_endpoint() {
         "",
         "http://localhost:8080"
       );
-      time_out_num = setTimeout(() => {
-        login_main.style.display = "none";
-        main_header.style.display = "block";
-        main_main.style.display = "block";
-        main_footer.style.display = "block";
-        loading_div.style.display = "none";
-      }, 2000);
+      time_out_num = loading_screen(false, 4000);
     }
     if (xhr.status > 300) {
       error_html.innerHTML = `<h2 style='font-size:1.5rem !important'>Error connecting to <span style='text-decoration:underline;font-size:1.5rem !important'>${
@@ -36,12 +30,7 @@ function post_data_to_endpoint() {
       error_html.style.height = "75px";
       //   error_html.style.padding = "20px";
       console.error("Request failed with status:", xhr.status);
-      time_out_num = setTimeout(() => {
-        error_html.innerHTML = "";
-        error_html.style.height = "0";
-        error_html.style.padding = "0";
-        loading_div.style.display = "none";
-      }, 4000);
+      time_out_num = loading_screen(false, 4000);
     }
   };
   clearTimeout(time_out_num);
@@ -85,7 +74,7 @@ const get_data = async () => {
   }
 };
 const post_data = async () => {
-  loading_div.style.display = "flex";
+  loading_screen(true, 0);
   const url = "http://localhost:8080/api/v1.0/details-login";
   const response = await fetch(url, {
     method: "POST",
@@ -103,12 +92,7 @@ const post_data = async () => {
     //   error_html.style.padding = "20px";
     console.error("Request failed with status:", response.status);
 
-    time_out_num = setTimeout(() => {
-      loading_div.style.display = "none";
-      error_html.innerHTML = "";
-      error_html.style.height = "0";
-      error_html.style.padding = "0";
-    }, 4000);
+    time_out_num = loading_screen(false, 4000);
     return;
     // throw new Error(`Response status: ${response.status}`);
   }
@@ -125,22 +109,20 @@ const post_data = async () => {
     "",
     "http://localhost:8080"
   );
-  time_out_num = setTimeout(() => {
-    login_main.style.display = "none";
-    main_header.style.display = "block";
-    main_main.style.display = "block";
-    main_footer.style.display = "block";
-    loading_div.style.display = "none";
-  }, 2000);
+  time_out_num = loading_screen(false, 4000);
   console.log(result);
 };
 const get_folder_data_tree = async (folder_name) => {
+  loading_screen(true, 0);
   const url = `http://localhost:8080/api/v1.0/get-folder-data?folder=${folder_name}`;
   const response = await fetch(url);
+
   if (!response.ok) {
+    loading_screen(false, 2100);
     throw new Error(`Response status: ${response.status}`);
   }
 
   const result = await response.json();
   console.log(result);
+  loading_screen(false, 2100);
 };
