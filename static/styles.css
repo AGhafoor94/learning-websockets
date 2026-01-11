@@ -14,6 +14,8 @@
   --default-colour-theme-white: #ffffff;
   --dark-green: #004b23;
   --light-green: #006f34;
+  --gradient-start: #005eb8;
+  --gradient-end: #006747;
 }
 * {
   padding: 0;
@@ -43,18 +45,26 @@ header {
         border-bottom: 2px solid var(--default-colour-theme-orange);
         color: var(--default-colour-theme-grey); */
   /* background: linear-gradient(135deg, #ff7f00, #9b4dca); */
-  background: linear-gradient(310deg, #d84315, #650a0a 85%);
+  background: linear-gradient(
+    310deg,
+    var(--gradient-start),
+    var(--gradient-end) 85%
+  );
   color: var(--default-colour-theme-grey);
 }
 .dark-header {
   /* background-color: var(--autumn-colour-theme-chesnut);
         border-bottom: 2px solid var(--autumn-colour-theme-almond); */
-  background: linear-gradient(310deg, #d84315, #650a0a 85%);
+  background: linear-gradient(
+    310deg,
+    var(--gradient-start),
+    var(--gradient-end) 85%
+  );
   color: var(--default-colour-theme-grey);
 }
 #left-side-login {
   height: 100%;
-  width: 50%;
+  width: 25%;
   display: flex;
   flex-direction: column;
   padding: 0 10px;
@@ -64,22 +74,31 @@ header {
         border-right: 2px solid var(--default-colour-theme-deep-blue);
         color: var(--default-colour-theme-white);
   background: linear-gradient(180deg, #ff6600, #8a2be2); */
-  background: linear-gradient(0deg, #d84315, #650a0a);
+  background: linear-gradient(0deg, var(--gradient-start), var(--gradient-end));
+  color: var(--default-colour-theme-grey);
 }
 .dark-side-menu {
   /* background: var(--autumn-colour-theme-mahogany);
         border-right: 2px solid var(--autumn-colour-theme-almond); */
-  background: linear-gradient(0deg, #d84315, #650a0a);
-  color: var(--autumn-colour-theme-almond);
+  background: linear-gradient(0deg, var(--gradient-start), var(--gradient-end));
+  color: var(--default-colour-theme-grey);
 }
 .default-footer {
   /* background-color: var(--default-colour-theme-white);
         color: var(--default-colour-theme-black); */
-  background: linear-gradient(97deg, #d84315, #650a0a);
+  background: linear-gradient(
+    97deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   color: var(--default-colour-theme-grey);
 }
 .dark-footer {
-  background: linear-gradient(97deg, #d84315, #650a0a);
+  background: linear-gradient(
+    97deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   color: var(--autumn-colour-theme-almond);
 }
 h2 {
@@ -231,6 +250,7 @@ button:disabled {
       8px no-repeat,
     conic-gradient(transparent 30%, #ffa516);
   animation: spinner 1s infinite linear;
+  z-index: 100000000;
 }
 @keyframes spinner {
   100% {
@@ -238,7 +258,8 @@ button:disabled {
   }
 }
 #login-background {
-  background: linear-gradient(135deg, #000000, 55%, #d84315);
+  /* background: linear-gradient(135deg, #000000, 55%, #d84315); */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .folders {
   cursor: pointer;
@@ -246,4 +267,8 @@ button:disabled {
 }
 .folders:hover {
   color: var(--autumn-colour-theme-almond);
+}
+.folder-active {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }

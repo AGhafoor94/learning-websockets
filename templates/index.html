@@ -15,7 +15,7 @@
         background-color: rgba(0, 0, 0, 0.75);
         position: absolute;
         top: 0;
-        z-index: 1000;
+        z-index: 10000000;
         display: none;
         width: 100%;
         height: 100%;
@@ -26,14 +26,29 @@
     >
       <div id="loading-spinner"></div>
     </div>
-    <div id="login-main" class="default default-main">
+    <div
+      id="login-main"
+      class="default default-main"
+      style="
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 48, 135, 0.2),
+          rgba(0, 103, 71, 0.2)
+        );
+        backdrop-filter: blur(10px);
+      "
+    >
       <div
         style="display: flex; height: 100%; width: 100%"
         id="login-background"
       >
         <div id="left-side-login" class="default default-left-side-login">
           <h2 id="ip-chosen" style="margin-top: 10px"></h2>
-          <h3
+          <!-- <h3
             style="
               font-size: 2rem;
               text-align: center;
@@ -45,105 +60,128 @@
             "
           >
             Select Server<br />Enter Username and Password
-          </h3>
+          </h3> -->
         </div>
-        <div class="right-side-login" style="backdrop-filter: blur(10px)">
+        <div class="right-side-login">
           <form
             id="user-details-form"
-            hx-post="/details-login"
+            hx-post="/api/v1.0/details-login"
             hx-target="#dont-display"
           >
             <div
               style="
-                /* background: linear-gradient(100deg, #fc782580, #e11111a6); */
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 16px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                backdrop-filter: blur(10px);
+                width: 100%;
+                background: linear-gradient(
+                  45deg,
+                  rgba(0, 48, 135, 0.1),
+                  rgba(0, 150, 57, 0.1)
+                );
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+                backdrop-filter: blur(15px);
                 -webkit-backdrop-filter: blur(15px);
                 border: 1px solid rgba(255, 255, 255, 0.3);
-                padding: 20px 50px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-                width: 100%;
-                align-items: center;
+                border-radius: 16px;
               "
             >
-              <div style="width: 100%; margin: 20px">
-                <label
-                  for="sftp"
-                  class="form-label"
-                  style="color: var(--default-colour-theme-grey)"
-                  >Select SFTP Server</label
-                >
-                <select name="sftp" id="sftp-select" class="form-control">
-                  <option value="" disabled selected>Select Server</option>
-                  <!-- <option value="10.222:22">First</option>
-                  <option value="10.232:22">Second</option> -->
-                </select>
-              </div>
-              <div style="width: 100%; margin-bottom: 20px">
-                <label
-                  for="username"
-                  class="form-label"
-                  style="color: var(--default-colour-theme-grey) !important"
-                  >Username</label
-                >
-                <input
-                  class="form-control default default-form-control"
-                  type="text"
-                  placeholder="Username"
-                  aria-label="username"
-                  id="username"
-                  name="username"
-                />
-              </div>
-              <div style="width: 100%; margin-bottom: 20px">
-                <label
-                  for="password"
-                  class="form-label"
-                  style="color: var(--default-colour-theme-grey) !important"
-                  >Password</label
-                >
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control default default-form-control"
-                  placeholder="Password"
-                  aria-label="password"
-                  name="password"
-                />
-              </div>
-              <div id="validation-error"></div>
               <div
                 style="
-                  display: flex;
-                  align-items: flex-end;
-                  width: 100%;
-                  justify-content: flex-end;
+                  padding: 25px;
+                  background: linear-gradient(
+                    45deg,
+                    rgba(0, 48, 135, 0.25),
+                    rgba(0, 150, 57, 0.25)
+                  );
+                  border-radius: 16px 16px 0 0;
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                  text-align: center;
+                  font-size: 1.5rem;
                 "
               >
-                <button
-                  type="submit"
-                  class="button button-submit"
-                  id="submit-user-button"
-                  disabled="true"
-                  title=""
+                Connect to SFTP Server
+              </div>
+              <div
+                style="
+                  /* background: linear-gradient(100deg, #fc782580, #e11111a6); */
+                  /* background: rgba(255, 255, 255, 0.1); */
+                  padding: 20px 50px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-evenly;
+                  width: 100%;
+                  align-items: center;
+                "
+              >
+                <div style="width: 100%; margin: 20px">
+                  <label
+                    for="sftp"
+                    class="form-label"
+                    style="color: var(--default-colour-theme-grey)"
+                    >Select SFTP Server</label
+                  >
+                  <select name="sftp" id="sftp-select" class="form-control">
+                    <option value="" disabled selected>Select Server</option>
+                    <!-- <option value="10.222:22">First</option>
+                  <option value="10.232:22">Second</option> -->
+                  </select>
+                </div>
+                <div style="width: 100%; margin-bottom: 20px">
+                  <label
+                    for="username"
+                    class="form-label"
+                    style="color: var(--default-colour-theme-grey) !important"
+                    >Username</label
+                  >
+                  <input
+                    class="form-control default default-form-control"
+                    type="text"
+                    placeholder="Username"
+                    aria-label="username"
+                    id="username"
+                    name="username"
+                  />
+                </div>
+                <div style="width: 100%; margin-bottom: 20px">
+                  <label
+                    for="password"
+                    class="form-label"
+                    style="color: var(--default-colour-theme-grey) !important"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control default default-form-control"
+                    placeholder="Password"
+                    aria-label="password"
+                    name="password"
+                  />
+                </div>
+                <div id="validation-error"></div>
+                <div
+                  style="
+                    display: flex;
+                    align-items: flex-end;
+                    width: 100%;
+                    justify-content: flex-end;
+                  "
                 >
-                  Connect
-                </button>
+                  <button
+                    type="submit"
+                    class="button button-submit"
+                    id="submit-user-button"
+                    disabled="true"
+                    title=""
+                  >
+                    Connect
+                  </button>
+                </div>
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <header
-      class="default default-header"
-      id="main-header"
-      style="display: none"
-    >
+    <header class="default default-header" id="main-header">
       <div
         style="
           position: absolute;
@@ -163,7 +201,7 @@
         <div onclick="change_css_styles()" id="sun-icon-location"></div>
       </div>
     </header>
-    <main class="default default-main" id="main-main" style="display: none">
+    <main class="default default-main" id="main-main">
       <div style="display: flex; height: 100%; width: 100%">
         <div id="side-menu" class="default default-side-menu">
           <h2 id="ip-chosen" style="margin-top: 10px"></h2>
@@ -171,13 +209,7 @@
         <div class="container"></div>
       </div>
     </main>
-    <footer
-      class="default default-footer"
-      id="main-footer"
-      style="display: none"
-    >
-      Footer
-    </footer>
+    <footer class="default default-footer" id="main-footer">Footer</footer>
     <script src="/static/svgs.js"></script>
     <script src="/static/index.js"></script>
     <script src="/static/rest-calls.js"></script>

@@ -86,7 +86,7 @@ const get_data = async () => {
 };
 const post_data = async () => {
   loading_div.style.display = "flex";
-  const url = "http://localhost:8080/details-login";
+  const url = "http://localhost:8080/api/v1.0/details-login";
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify({

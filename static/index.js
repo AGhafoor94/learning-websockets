@@ -196,13 +196,18 @@ function add_sftp_connections_to_drop_down() {
     document.getElementById("sftp-select").appendChild(option);
   });
 }
-function click_test(i) {
+function select_folder(i) {
+  const list_of_active_items = document.querySelectorAll(".folder-active");
+  list_of_active_items.forEach((item) =>
+    item.classList.remove("folder-active")
+  );
+  document.getElementById(`button-${i}`).classList.add("folder-active");
   console.log(i);
 }
 function add_data_to_side_bar() {
   sftp_side_menu = document.getElementById("side-menu");
   for (let i = 0; i < 5; i++) {
-    sftp_side_menu.innerHTML += `<div class="folders" id='button-${i}' style='width: 100%; padding: 5px;margin: 5px 0;display: flex;align-items: center;' onclick="click_test(${i})">${return_folder_filled_icon(
+    sftp_side_menu.innerHTML += `<div class="folders" id='button-${i}' style='width: 100%; padding: 5px;margin: 5px 0;display: flex;align-items: center;' onclick="select_folder(${i})">${return_folder_filled_icon(
       32,
       "fill: var(--default-colour-theme-grey) !important"
     )} <span style="margin-left: 10px">Folder ${i}</span></div>`;

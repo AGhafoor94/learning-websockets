@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
 
 	// "os/exec"
@@ -25,10 +26,13 @@ var (
 )
 
 const port string = ":8080"
+const api_version string = "/api/v1.0"
 
 func main() {
-	fmt.Println("STARTED")
-	http.HandleFunc("/details-login", submit_login_details)
+	local_address := fmt.Sprintf("http://%s%s", get_local_ip(), port)
+
+	fmt.Println("Listening to:", local_address)
+	http.HandleFunc(fmt.Sprintf("%s/details-login", api_version), submit_login_details)
 	start_server()
 }
 func start_server() {
@@ -90,3 +94,15 @@ func submit_login_details(response_writer http.ResponseWriter, request *http.Req
 // 	}
 // 	defer file.Close()
 // }
+
+func get_local_ip() net.IP {
+	connection, err := net.Dial("udp", "8.8.8.8:80")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer connection.Close()
+
+	local_address := connection.LocalAddr().(*net.UDPAddr)
+
+	return local_address.IP
+}
