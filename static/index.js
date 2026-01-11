@@ -203,6 +203,10 @@ function select_folder(i) {
   );
   document.getElementById(`button-${i}`).classList.add("folder-active");
   console.log(i);
+  const get_folder_name = get_folder_data_tree(
+    document.getElementById(`folder-name-${i}`).innerHTML
+  );
+  console.log(get_folder_name);
 }
 function add_data_to_side_bar() {
   sftp_side_menu = document.getElementById("side-menu");
@@ -210,7 +214,7 @@ function add_data_to_side_bar() {
     sftp_side_menu.innerHTML += `<div class="folders" id='button-${i}' style='width: 100%; padding: 5px;margin: 5px 0;display: flex;align-items: center;' onclick="select_folder(${i})">${return_folder_filled_icon(
       32,
       "fill: var(--default-colour-theme-grey) !important"
-    )} <span style="margin-left: 10px">Folder ${i}</span></div>`;
+    )} <span style="margin-left: 10px" id="folder-name-${i}">Folder ${i}</span></div>`;
   }
 }
 document.getElementById("sftp-select").addEventListener("change", (event) => {

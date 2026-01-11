@@ -33,6 +33,7 @@ func main() {
 
 	fmt.Println("Listening to:", local_address)
 	http.HandleFunc(fmt.Sprintf("%s/details-login", api_version), submit_login_details)
+	http.HandleFunc(fmt.Sprintf("%s/get-folder-data", api_version), return_folder_data)
 	start_server()
 }
 func start_server() {
@@ -85,16 +86,34 @@ func submit_login_details(response_writer http.ResponseWriter, request *http.Req
 // 	file, handler, err := request.FormFile("file")
 // 	if err != nil {
 
-// 		status_return := status_return_struct{
-// 			Message: "File not able to load",
-// 			Status:  http.StatusBadRequest,
-// 		}
-// 		response_writer.WriteHeader(http.StatusBadRequest)
-// 		json.NewEncoder(response_writer).Encode(status_return)
-// 	}
-// 	defer file.Close()
-// }
+//			status_return := status_return_struct{
+//				Message: "File not able to load",
+//				Status:  http.StatusBadRequest,
+//			}
+//			response_writer.WriteHeader(http.StatusBadRequest)
+//			json.NewEncoder(response_writer).Encode(status_return)
+//		}
+//		defer file.Close()
+//	}
+func return_folder_data(response_writer http.ResponseWriter, request *http.Request) {
+	type mapped_test_data map[string]string
+	var new_data_temp = make(map[string]string)
+	new_data_temp["folder"] = request.URL.Query()["folder"][0]
+	fmt.Println("FOLDER NAME QUERY:", request.URL.Query())
+	json_string_to_send, err := json.Marshal(new_data_temp)
+	if err != nil {
+		fmt.Println("Unable to read all request body: ", err)
+		response_writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	status_return := status_return_struct{
+		Message: string(json_string_to_send),
+		Status:  http.StatusOK,
+	}
 
+	response_writer.Header().Add("Content-Type", "application/json")
+	json.NewEncoder(response_writer).Encode(status_return)
+}
 func get_local_ip() net.IP {
 	connection, err := net.Dial("udp", "8.8.8.8:80")
 	if err != nil {

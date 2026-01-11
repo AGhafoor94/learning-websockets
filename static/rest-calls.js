@@ -134,3 +134,13 @@ const post_data = async () => {
   }, 2000);
   console.log(result);
 };
+const get_folder_data_tree = async (folder_name) => {
+  const url = `http://localhost:8080/api/v1.0/get-folder-data?folder=${folder_name}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  console.log(result);
+};
