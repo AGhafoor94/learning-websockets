@@ -46,7 +46,7 @@ window.addEventListener("load", () => {
     set_dark_style = true;
   }
   change_css_styles();
-  validate_for_submitting();
+  //   validate_for_submitting();
   add_sftp_connections_to_drop_down();
   add_data_to_side_bar();
 
@@ -145,36 +145,55 @@ const change_ip = () => {
   return false;
 };
 
-document.getElementById("username").addEventListener("input", (event) => {
-  if (event.target.value.length > 0) {
+// document.getElementById("username").addEventListener("input", (event) => {
+//   if (event.target.value.length > 0) {
+//     username_entered = true;
+//   } else {
+//     username_entered = false;
+//   }
+//   console.log(event.target.value);
+
+//   validate_for_submitting();
+// });
+// document.getElementById("password").addEventListener("input", (event) => {
+//   if (event.target.value.length > 0) {
+//     password_entered = true;
+//   } else {
+//     password_entered = false;
+//   }
+//   console.log(event.target.value);
+//   validate_for_submitting();
+// });
+
+// document.getElementById("sftp-select").addEventListener("change", (event) => {
+//   if (event.target.value !== "") {
+//     ip_address_selected = true;
+//   } else {
+//     ip_address_selected = false;
+//   }
+//   console.log(event.target.value);
+//   validate_for_submitting();
+// });
+submit_user_button.addEventListener("click", async () => {
+  validation_error = "";
+  if (document.getElementById("username").value !== "") {
     username_entered = true;
   } else {
     username_entered = false;
+    validation_error += " Username is required. ";
   }
-  console.log(event.target.value);
-
-  validate_for_submitting();
-});
-document.getElementById("password").addEventListener("input", (event) => {
-  if (event.target.value.length > 0) {
+  if (document.getElementById("password").value !== "") {
     password_entered = true;
   } else {
     password_entered = false;
+    validation_error += " Password is required. ";
   }
-  console.log(event.target.value);
-  validate_for_submitting();
-});
-
-document.getElementById("sftp-select").addEventListener("change", (event) => {
-  if (event.target.value !== "") {
+  if (document.getElementById("sftp-select").value !== "") {
     ip_address_selected = true;
   } else {
     ip_address_selected = false;
+    validation_error += " SFTP Server is required. ";
   }
-  console.log(event.target.value);
-  validate_for_submitting();
-});
-submit_user_button.addEventListener("click", async () => {
   if (
     document.getElementById("sftp-select").value !== "" &&
     username_entered &&
@@ -185,6 +204,10 @@ submit_user_button.addEventListener("click", async () => {
   } else {
     document.getElementById("validation-error").innerHTML = validation_error;
     document.getElementById("validation-error").style.display = "block";
+    document.getElementById("validation-error").style.color =
+      "var(--main-colour)";
+    document.getElementById("validation-error").style.marginBottom = "10px";
+    document.getElementById("validation-error").style.textAlign = "left";
   }
 });
 
